@@ -1,0 +1,95 @@
+{
+  "id": "session-router",
+  "name": "Session Router",
+  "description": "Dashboard session router: route messages to agent sessions manually or via Jev-judged auto-routing.",
+  "version": "1.0.0",
+  "activation": {
+    "onStartup": true
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "dashboard": {
+    "actionVerbs": [
+      {
+        "id": "route",
+        "method": "session-router.route",
+        "description": "Send a message from the dashboard straight to a chosen agent session.",
+        "paramShape": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sessionKey": {
+              "type": "string",
+              "description": "Target session key."
+            },
+            "agentId": {
+              "type": "string",
+              "description": "Target agent primary session when sessionKey is omitted."
+            },
+            "message": {
+              "type": "string",
+              "description": "Message text to route."
+            },
+            "feedback": {
+              "type": "object",
+              "description": "Optional click-confirmation telemetry when this send confirms a Jev suggestion.",
+              "properties": {
+                "suggestion": {
+                  "type": "string",
+                  "description": "Session key Jev suggested."
+                },
+                "probability": {
+                  "type": "number"
+                },
+                "determined": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "auto-route",
+        "method": "session-router.auto-route",
+        "description": "Ask Jev which agent session should handle a message; auto-routes at high confidence, otherwise returns the ranked suggestion for one-click confirmation.",
+        "paramShape": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Message text to route."
+            },
+            "candidates": {
+              "type": "array",
+              "maxItems": 25,
+              "description": "Visible sessions to choose among, as {sessionKey, label, agentId?, activity?}.",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "sessionKey": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "agentId": {
+                    "type": "string"
+                  },
+                  "activity": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

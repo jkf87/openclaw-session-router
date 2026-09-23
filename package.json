@@ -1,0 +1,30 @@
+{
+  "name": "openclaw-session-router",
+  "version": "1.0.0",
+  "description": "OpenClaw dashboard session router: manual + Jev-judged auto routing of messages to agent sessions",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkf87/openclaw-session-router.git"
+  },
+  "homepage": "https://github.com/jkf87/openclaw-session-router#readme",
+  "bugs": "https://github.com/jkf87/openclaw-session-router/issues",
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "session-router",
+    "dashboard",
+    "agent-routing",
+    "jev"
+  ],
+  "main": "index.js",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ]
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  }
+}
