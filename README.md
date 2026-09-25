@@ -49,9 +49,11 @@ openclaw plugins inspect session-router   # Status: enabled, Version: 1.0.0
 openclaw gateway call session-router.route --params '{"message":""}' --json
 ```
 
-⚠️ **재시작 타이밍 함정**: 위젯을 고정하기 전에 게이트웨이 재시작으로 `auto-route` 동사가
-**활성 상태**인지 먼저 확인하세요. 동사가 살기 전에 고정한 위젯은 권한 부여가 기록되지 않아
-`board widget action verb is not allowed` 에러가 납니다 → 이때는 위젯을 다시 고정하면 됩니다.
+⚠️ **`board widget action verb is not allowed` 가 뜰 때**: 위젯은 매니페스트 **루트의**
+`dashboard.actionVerbs` 에 선언된 동사만 부를 수 있습니다(`surfaces.dashboard…` 처럼 다른 위치에 두면 조용히 무시됨).
+`openclaw gateway call` 로는 되는데 위젯에서만 거부되면 이 선언 위치부터 확인하세요.
+위젯의 `capabilityState: "granted"` 는 선언이 기록됐다는 뜻일 뿐, 동사가 게이트웨이에 등록됐다는 뜻이 아닙니다.
+재시작 직후 위젯이 `Widget inactive` 를 보이면 대시보드를 새로고침하면 됩니다.
 
 ## 위젯 올리기
 
